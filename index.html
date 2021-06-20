@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>JavaScript Promises</title>
+    <!-- <script defer src="./callback.js"></script> -->
+    <!-- <script defer src="./promises.js"></script> -->
+    <!-- <script defer src="./fetch.js"></script> -->
+    <style>
+*{
+  padding: 0;
+  margin: 0;
+  font-family: sans-serif;
+}
+      .myNav {
+        font-size: 20px;
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        background: rgb(161, 60, 60);
+        padding: 20px;
+        margin-bottom: 5px;
+        margin-top: 0px;
+        color: white;
+      }
+
+      li {
+        list-style: none;
+        text-align: center
+      }
+
+      li:hover {
+        color:rgb(143, 138, 138)
+
+      }
+
+      .container {
+        min-height: 100vh;
+        background: salmon;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+      }
+
+      .post {
+        display: flex;
+        flex-direction: column;
+
+        background-color: brown;
+        padding: 10px;
+        max-width: 900px;
+        height: auto;
+        margin: 15px;
+        position: relative;
+      }
+
+      .post p {
+        margin-bottom: 35px;
+      }
+
+      .title {
+        font-size: 40px;
+      }
+
+      .body {
+        font-size: 20px;
+        line-height: 28px;
+      }
+
+      button {
+        /* position: absolute; */
+        padding: 5px;
+        font-size: 20px;
+        float: right;
+        margin: 0px 0px 5px 0px;
+      }
+
+      footer {
+        font-size: 25px;
+        display: flex;
+        justify-content: space-around;
+        padding: 15px;
+        min-height: 200px;
+        background: rgb(161, 60, 60);
+      }
+
+      .about, .bottom-links {
+        width: 33%;
+        height: auto;
+        margin-bottom: 20px;
+      }
+
+
+      .address {
+        word-wrap: break-word;
+        height: auto;
+        width: 33%;
+
+      }
+
+      @media (max-width: 500px) {
+        footer {
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+        }
+
+        .about, .bottom-links, .address {
+          padding: 5px;
+          margin-bottom: 15px;
+          margin-top: 15px;
+          width: 100%;
+          text-align: center;
+      }
+
+      .bottom-links {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        height: 130px;
+      }
+      }
+
+    </style>
+  </head>
+  <body>
+    <navbar>
+      <ul class="myNav">
+        <li class="item">Home</li>
+        <li class="item">About</li>
+        <li class="item">Contact</li>
+        <li class="item">Store</li>
+      </ul>
+    </navbar>
+    <section>
+        
+      </div>
+      <div class="container">
+        <div class="post">
+          <div class="title">Hello, This is the real First Post</div>
+          <div class="body">
+            <p>
+              This is just dummy text. The is a website build using HTML, CSS,
+              JavaScript. This is just dummy text. The is a website build using
+              HTML, CSS, JavaScript. This is just dummy text. The is a website
+              build using HTML, CSS, JavaScript. This is just dummy text. The is
+              a website build using HTML, CSS, JavaScript. This is just dummy
+              text. The is a website build using HTML, CSS, JavaScript. This is
+              just dummy text. The is a website build using HTML, CSS,
+              JavaScript. This is just dummy text. The is a website build using
+              HTML, CSS, JavaScript.
+            </p>
+            <button>Read More</button>
+          </div>
+        </div>
+      </div>
+    </section>
+    <footer>
+      <div class="about"><p> This blog is typically dedicated to Web Development tutorials.
+        You can enjoy and learn about HTML, CSS, JavaScript.
+        Not only this but also React, Vue Js and Express.</p></div>
+        <hr />
+      <div class="links">
+        <ul class="bottom-links">
+          <li class="item">Home</li>
+          <li class="item">About</li>
+          <li class="item">Contact</li>
+          <li class="item">Store</li>
+        </ul>
+      </div>
+      <hr />
+      <div class="address">
+        Polo street, Downtown, <br> Canada <br> 445698 <br> zobrick@webdev.com
+      </div>
+    </footer>
+    <script>
+      const posts = [
+  {
+    title: `Hello, This is the real First Post`,
+    body: `<p>This is just dummy text. The is a website build using HTML, CSS,
+    JavaScript. This is just dummy text. The is a website build using
+    HTML, CSS, JavaScript. This is just dummy text. The is a website
+    build using HTML, CSS, JavaScript. This is just dummy text. The is
+    a website build using HTML, CSS, JavaScript. This is just dummy
+    text. The is a website build using HTML, CSS, JavaScript. This is
+    just dummy text. The is a website build using HTML, CSS,
+    JavaScript. This is just dummy text. The is a website build using
+    HTML, CSS, JavaScript.</p>`,
+  },
+
+  {
+    title: `Hello, This is the real First Post`,
+    body: `<p>This is just dummy text. The is a website build using HTML, CSS,
+    JavaScript. This is just dummy text. The is a website build using
+    HTML, CSS, JavaScript. This is just dummy text. The is a website
+    build using HTML, CSS, JavaScript. This is just dummy text. The is
+    a website build using HTML, CSS, JavaScript. This is just dummy
+    text. The is a website build using HTML, CSS, JavaScript. This is
+    just dummy text. The is a website build using HTML, CSS,
+    JavaScript. This is just dummy text. The is a website build using
+    HTML, CSS, JavaScript.</p>`,
+  },
+];
+
+function getPosts() {
+  setTimeout(() => {
+    let output = "";
+    posts.forEach((post, index) => {
+      output += `<div class="post">
+      <div class="title">${post.title}</div>
+      <div class="body">
+        
+          ${post.body}
+        
+        <button>Read More</button>
+      </div>
+    </div>`;
+    });
+    document.querySelector(".container").innerHTML = output;
+    // document.body.innerHTML = output;
+  }, 0);
+}
+
+function createPost(post, callback) {
+  setTimeout(() => {
+    posts.push(post);
+    callback();
+  }, 0);
+}
+
+createPost(
+  {
+    title: `Hello, This is the real First Post`,
+    body: `<p>This is just dummy text. The is a website build using HTML, CSS,
+    JavaScript. This is just dummy text. The is a website build using
+    HTML, CSS, JavaScript. This is just dummy text. The is a website
+    build using HTML, CSS, JavaScript. This is just dummy text. The is
+    a website build using HTML, CSS, JavaScript. This is just dummy
+    text. The is a website build using HTML, CSS, JavaScript. This is
+    just dummy text. The is a website build using HTML, CSS,
+    JavaScript. This is just dummy text. The is a website build using
+    HTML, CSS, JavaScript.</p>`,
+  },
+  getPosts
+);
+
+    </script>
+  </body>
+</html>
